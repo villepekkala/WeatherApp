@@ -2,6 +2,9 @@ package com.example.week5.view
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,6 +16,7 @@ import com.example.week5.viewmodel.WeatherUiState
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
+    val history by viewModel.history.collectAsState()
     var cityInput by remember { mutableStateOf("") }
 
     Column(
@@ -56,7 +60,34 @@ fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
                     )
                 }
             }
+
             is WeatherUiState.Error -> Text(text = state.message, color = MaterialTheme.colorScheme.error)
         }
+        if (history.isNotEmpty()) {
+            Text(
+                text = "Hakuhistoria:",
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.align(Alignment.Start)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+
+            LazyColumn(modifier = Modifier.fillMaxWidth()) {
+                items(history) { entity ->
+                    Column(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                    ) {
+                        Text(
+                            text = "${entity.city} - ${entity.temp}°C",
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(text = "Kuvaus: ${entity.description}")
+                    }
+                    HorizontalDivider()
+                }
+            }
     }
-}
+}}
