@@ -18,3 +18,5 @@ Projektissa käytetään Room-tietokantaa välimuistina:
 
 * Kun kaupunkia haetaan, sovellus tarkistaa ensin paikallisen tietokannan. Jos kaupungin tietoa ei löydy tietokannasta, niin sovellus hakee nykyisen sään OpenWeather API:sta, tallentaa sen Roomiin ja päivittää näkymän. Samalla tallennus saa aikaleiman (timestamp), josta selviää milloin haku on tehty.
 * Jos haku löytyy jo tietokannasta ja tämä haku on tehty alle 30 minuuttia sitten, niin sovellus näyttää tämän tiedon eli tällöin ei haeta nykyistä säätä rajapinnasta. Jos on kuitenkin kulunut yli 30 minuuttia, niin tällöin tehdään uusi haku rajapintaan ja haetaan tuorein sää OpenWeatherista.
+
+Tämä projekti on toteutettu osana Android-ohjelmoinnin kurssin viikkotehtäviä
